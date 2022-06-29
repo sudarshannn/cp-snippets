@@ -1,0 +1,23 @@
+<snippet>
+	<content><![CDATA[
+ll count_inversion(vll &v)
+{
+    ll ans=0;
+    set<ll> s;
+    for(ll i=0;i<(int)v.size();i++)
+    {
+        s.insert(v[i]);
+        if(s.size()>1)
+        {
+            auto x=s.upper_bound(v[i]);
+            ans+=distance(x,s.end());
+        }
+    }
+    return ans;
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>count_inversion</tabTrigger> 
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

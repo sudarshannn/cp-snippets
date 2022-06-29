@@ -1,0 +1,38 @@
+<snippet>
+	<content><![CDATA[
+ll kthElement(vll &a,vll &b,ll k)
+{
+    ll i,j,n=a.size(),m=b.size();
+    if(n>m)
+    {
+        swap(a,b);
+        swap(n,m);
+    }
+    ll l=max(0ll,k-m),h=min(k,n);
+
+    while(l<=h)
+    {
+        ll mid=(l+h)/2;
+        ll cut1=mid,cut2=k-mid;
+
+        ll l1=(cut1==0 ? INT_MIN : a[cut1-1]);
+        ll l2=(cut2==0 ? INT_MIN : b[cut2-1]);
+
+        ll r1=(cut1==n ? INT_MAX : a[cut1]);
+        ll r2=(cut2==m ? INT_MAX : b[cut2]);
+
+        if(l1<=r2 && l2<=r1)
+            return max(l1,l2);
+        else if(l1>r2)
+            h=mid-1;
+        else
+            l=mid+1;
+    }
+    return -1;
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	 <tabTrigger>kthElement_2_sorted_array</tabTrigger> 
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

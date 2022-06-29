@@ -1,0 +1,38 @@
+<snippet>
+	<content><![CDATA[
+float sq(ll n,ll p)
+{
+    float l=0,h=n,ans;
+
+    while(l<=h)
+    {
+        int mid=(l+h)/2;
+        if(mid*mid==n)
+            return mid;
+
+        if(mid*mid<=n)
+        {
+            ans=mid;
+            l=mid+1;
+        }
+        else
+            h=mid-1;
+    }
+    float fc=0.1;
+    for(int i=0;i<p;i++)
+    {
+        while(ans*ans<=n)
+        {
+            ans+=fc;
+        }
+        ans-=fc;
+        fc/=10;
+    }
+    return ans;
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	 <tabTrigger>SqureRoot_float</tabTrigger> 
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

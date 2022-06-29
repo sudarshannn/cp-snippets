@@ -1,0 +1,45 @@
+<snippet>
+	<content><![CDATA[
+ll lis(vll &v)
+{
+    ll i,j,k,n=v.size();
+    vll dp(n+1,INF),par(n,-1);
+    dp[0]=-INF;
+
+    /*f(i,0,n)          O(n^2)
+    {
+        f(j,1,n+1)
+        {
+            if(dp[j-1]<v[i] && v[i]<dp[j])
+                dp[j]=v[i];
+        }
+
+    }*/
+
+    f(i,0,n)            // O(nlogn)
+    {
+        j=upper_bound(all(dp),v[i])-dp.begin();
+        if(dp[j-1]<v[i] && v[i]<dp[j])
+        {
+            dp[j]=v[i];
+        }
+    }
+    ll ans=0;
+    for(i=n;i>=1;i--)
+    {
+        if(dp[i]<INF)
+        {
+            ans=i;
+            break;
+        }
+    }
+
+    return ans;
+
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>LIS</tabTrigger> 
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

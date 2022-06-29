@@ -1,0 +1,32 @@
+<snippet>
+	<content><![CDATA[
+void selection_sort(int arr[],int n)
+{
+    // time complexity O(n^2)
+    // space complexity O(1)
+    int i,j;
+
+    for(i=0;i<n;i++)
+    {
+        int mn=arr[i],ind=i;
+        for(j=i;j<n;j++)
+        {
+            if(mn>arr[j])
+            {
+                mn=arr[j];
+                ind=j;
+            }
+        }
+        swap(arr[i],arr[ind]);
+    }
+    for(i=0;i<n;i++)
+        cout<<arr[i]<<" ";
+    
+}
+
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	 <tabTrigger>Selection_sort_array</tabTrigger> 
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

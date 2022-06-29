@@ -1,0 +1,53 @@
+<snippet>
+	<content><![CDATA[
+void sum_path(vector<vll> &dp,ll size,ll sum,vll v,vll &coin)
+{
+    if(!size)
+    {
+        if(!sum)
+        {
+            print(v);
+            cout<<endl;
+        }
+        return ;
+    }
+    v.pb(coin[size-1]);
+    sum_path(dp,size-1,sum-coin[size-1],v,coin);
+    v.pop_back();
+    sum_path(dp,size-1,sum,v,coin);
+
+}
+void solve()
+{
+    ll i,j,k,n,sum;
+    cin>>n>>sum;
+    vector<vll> dp(n+1,vll(sum+1,false));
+    f(i,0,n+1)
+    dp[i][0]=true;
+
+    vll coin(n);
+    scan(coin);
+    f(i,1,n+1)
+    {
+        f(j,1,sum+1)
+        {
+            dp[i][j]=dp[i-1][j];
+            if(coin[i-1]<=j)
+                dp[i][j]=dp[i][j]||dp[i-1][j-coin[i-1]];
+        }
+    }
+    vll v;
+    if(dp[n][sum])
+    {
+        sum_path(dp,n,sum,v,coin);
+        cout<<"YES";
+    }
+    else
+        cout<<"NO";
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+ <tabTrigger>subset_sum_problem</tabTrigger> 
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

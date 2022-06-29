@@ -1,0 +1,71 @@
+<snippet>
+	<content><![CDATA[
+struct p
+{
+	int min;
+	int max;
+	p()
+	{
+		min=100000;
+		max=-100;
+	}
+};
+p fun(int *a,int l,int h)
+{
+	p mm,mml,mmr;
+	if(l==h)
+	{
+		mm.min=a[l];
+		mm.max=a[l];
+		return mm;
+
+	}
+
+	if(h==l+1)
+	{
+		if(a[l]>a[h])
+		{
+			mm.max=a[l];
+			mm.min=a[h];
+		}
+		else
+		{
+			mm.max=a[h];
+			mm.min=a[l];
+		}
+		return mm;
+	}
+
+	int mid=(l+h)/2;
+	mml=fun(a,l,mid);
+	mmr=fun(a,mid+1,h);
+
+	if(mml.min<mmr.min)
+	{
+		mm.min=mml.min;
+	}
+	else
+	{
+		mm.min=mmr.min;
+	}
+
+	if(mml.max<mmr.max)
+	{
+		mm.max=mmr.max;
+	}
+	else
+	{
+		mm.max=mml.max;
+	}
+
+	return mm;
+
+
+}
+// p ans=fun(arr,0,size-1);
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	 <tabTrigger>FIND_MIN_MAX</tabTrigger> 
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

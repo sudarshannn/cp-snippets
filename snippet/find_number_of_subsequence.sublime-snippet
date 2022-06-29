@@ -1,0 +1,27 @@
+<snippet>
+	<content><![CDATA[
+ll fun(string s,string t)
+{
+    ll i,j,k,l2=s.size(),l1=t.size();
+    vector<vll> dp(l1+1,vll(l2+1,0));
+    f(i,0,l2+1)
+    {
+        dp[0][i]=1;
+    }
+    f(i,1,l1+1)
+    {
+        f(j,1,l2+1)
+        {
+            dp[i][j]=dp[i][j-1];
+            if(s[j-1]==t[i-1])
+                dp[i][j]+=dp[i-1][j-1];
+        }
+    }
+    return dp[l1][l2];
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	 <tabTrigger>find_number_of_subsequece</tabTrigger> 
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

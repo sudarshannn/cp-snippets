@@ -1,0 +1,29 @@
+<snippet>
+	<content><![CDATA[
+void update(vll &v,ll x,ll ind)
+{
+	ll i=ind,j;
+	while(i<(int)v.size())
+	{
+		v[i]+=x;
+		i+=(i&(-i));
+	}
+}
+ll query(vll &v,ll ind)
+{
+	ll i=ind,s=0;
+	while(i>0)
+	{
+		s+=v[i];
+		i-=(i&(-i));
+	}
+	return s;
+}
+//vll bit(n+1,0);
+
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>fenwick</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

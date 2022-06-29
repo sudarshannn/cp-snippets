@@ -1,0 +1,25 @@
+<snippet>
+	<content><![CDATA[
+Node *fun(int a[],int &ind,int n,int mn,int mx)
+{
+	
+	if(ind>=n)
+		return NULL;
+	Node *root=NULL;
+	int i,j,k;
+	k=a[ind];
+	if(k>mn  && k<mx)
+	{
+		root=new Node(k);
+		ind++;
+		root->left=fun(a,ind,n,mn,k);
+		root->right=fun(a,ind,n,k,mx);
+	}
+	return root;
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	 <tabTrigger>PRE->BST</tabTrigger> 
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

@@ -1,0 +1,130 @@
+<snippet>
+	<content><![CDATA[
+
+class MinHeap
+{
+    int cur,capacity;
+    vector<int> heap;
+public:
+    MinHeap()
+    {
+        cur=capacity=0;
+        heap=vector<int>();
+    }
+    MinHeap(int cap)
+    {
+        capacity=cap;
+        cur=0;
+        heap=vector<int>(cap);
+    }
+
+    int par(int i)
+    {
+        return (i-1)/2;
+    }
+    int left(int i)
+    {
+        return (2*i)+1;
+    }
+    int right(int i)
+    {
+        return (2*i)+2;
+    }
+
+
+    int Min()
+    {
+        if(cur<=0)
+            return -1;
+        return heap[0];
+    }
+
+    void heapify(int ind)
+    {
+        int l=left(ind);
+        int r=right(ind);
+        int smallest=ind;
+
+
+        if(l<cur && heap[l]<heap[ind])
+            smallest=l;
+        if(r<cur && heap[r]<heap[smallest])
+            smallest=r;
+
+        if(smallest!=ind)
+        {
+            swap(heap[ind],heap[smallest]);
+            heapify(smallest);
+        }
+    }
+
+    void insert(int key)
+    {
+        if(cur==capacity)
+        {
+            cout<<"Error:Heap is overflow\n";
+            return ;
+        }
+        cur++;
+        int ind=cur-1;
+        heap[ind]=key;
+
+        while(ind!=0 && heap[par(ind)]>heap[ind])
+        {
+            swap(heap[par(ind)],heap[ind]);
+            ind=par(ind);
+        }
+    }
+
+    int deleteMin()
+    {
+        if(cur<=0)
+            return INT_MIN;
+        if(cur==1)
+        {
+            cur--;
+            return heap[0];
+        }
+
+        int root=heap[0];
+        heap[0]=heap[cur-1];
+        cur--;
+        heapify(0);
+
+        return root;
+    }
+    void deleteInd(int ind)
+    {
+        if(ind==cur-1)
+        {
+            cur--;
+            return ;
+        }
+
+        swap(heap[ind],heap[cur-1]);
+
+        cur--;
+        heapify(ind);
+    }
+};
+void solve()
+{
+    MinHeap h1(7);
+    h1.insert(7);
+    h1.insert(6);
+    h1.insert(5);
+    h1.insert(3);
+    h1.insert(4);
+    h1.insert(1);
+    h1.insert(2);
+
+    
+    cout<<h1.Min()<<endl;
+    
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	 <tabTrigger>MinHeap</tabTrigger> 
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

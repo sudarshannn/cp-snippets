@@ -1,0 +1,48 @@
+<snippet>
+	<content><![CDATA[
+ll BS(vll &v,ll l,ll h,ll k)
+{
+	ll i,ans;
+	while(l<=h)
+	{
+		ll mid=(l+h)/2;
+		if(v[mid]>k)
+		{
+			ans=mid;
+			l=mid+1;
+		}
+		else
+			h=mid-1;
+	}
+	return ans;
+}
+void Next_permutation(vll &v)
+{
+	ll i,j,k,n=v.size();
+	ll ind=-1;
+	for(i=n-2;i>=0;i--)
+	{
+		if(v[i]<v[i+1])
+		{
+			ind=i;
+			break;
+		}
+	}
+	if(ind==-1)
+	{
+		s(v);
+		print(v);
+		return ;
+	}
+	ll sw=BS(v,ind+1,v.size()-1,v[ind]);
+	swap(v[ind],v[sw]);
+	reverse(v.begin()+ind+1,v.end());
+	print(v);
+}
+// Next_permutation(v)
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	 <tabTrigger>Next_Permutaion</tabTrigger> 
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

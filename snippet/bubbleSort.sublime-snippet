@@ -1,0 +1,37 @@
+<snippet>
+	<content><![CDATA[
+void bubble(vll &v,ll n)
+{
+    ll i,j,k;
+    f(i,0,n)
+    {
+        bool sw=false;
+        f(j,0,n-1)
+        {
+            if(v[j]>v[j+1])
+            {
+                sw=true;
+                swap(v[j],v[j+1]);
+            }
+        }
+        if(!sw)
+            break;
+    }
+}
+void bubble2(vll &v,ll n)
+{
+    if(n<=1)
+        return ;
+    for(ll i=0;i<n-1;i++)
+    {
+        if(v[i]>v[i+1])
+            swap(v[i],v[i+1]);
+    }
+    bubble2(v,n-1);
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	 <tabTrigger>bubble_sort</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

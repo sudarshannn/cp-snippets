@@ -1,0 +1,82 @@
+<snippet>
+	<content><![CDATA[
+ll BurnTree(Node *a,ll t,queue<Node*> &q)
+{
+    if(!a)
+        return 0;
+    if(a->val==t)
+    {
+        cout<<a->val<<endl;
+        if(a->left)
+            q.push(a->left);
+        if(a->right)
+            q.push(a->right);
+        return 1;
+    }
+    ll a1=BurnTree(a->left,t,q);
+    if(a1==1)
+    {
+        ll x=q.size();
+        while(x--)
+        {
+            auto u=q.front();
+            cout<<u->val<<" ";
+            q.pop();
+            if(u->left)
+                q.push(u->left);
+            if(u->right)
+                q.push(u->right);
+        }
+        if(a->right)
+            q.push(a->right);
+        cout<<a->val<<endl;
+        return 1;
+    }
+    ll b1=BurnTree(a->right,t,q);
+    if(b1==1)
+    {
+        ll x=q.size();
+        while(x--)
+        {
+            auto u=q.front();
+            cout<<u->val<<" ";
+            q.pop();
+            if(u->left)
+                q.push(u->left);
+            if(u->right)
+                q.push(u->right);
+        }
+        if(a->left)
+            q.push(a->left);
+        cout<<a->val<<endl;
+        return 1;
+    }
+    return 0;
+}
+void burntree(Node *root,ll t)
+{
+    queue<Node*> q;
+    BurnTree(root,t,q);
+    while(!q.empty())
+    {
+        ll x=q.size();
+        while(x--)
+        {
+            auto u=q.front();
+            cout<<u->val<<" ";
+            if(u->left)
+                q.push(u->left);
+            if(u->right)
+                q.push(u->right);
+            q.pop();
+        }
+        cout<<endl;
+    }
+
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	 <tabTrigger>burntree</tabTrigger> 
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

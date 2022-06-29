@@ -1,0 +1,65 @@
+<snippet>
+	<content><![CDATA[
+class bst
+{
+	
+public:
+	node *root;
+	bst()
+	{
+		root=NULL;
+	}
+	bst(ll x)
+	{
+		node *n=new node;
+		n->val=x;
+		n->left=NULL;
+		n->right=NULL;
+		root=n;
+	}
+	bool isempty()
+	{
+		if(root==NULL)
+			return true;
+		else
+			return false;
+	}
+	void insert(int x)
+	{
+		node *n=new node;
+		n->left=NULL;
+		n->right=NULL;
+		n->val=x;
+		node* temp;
+		if(isempty())
+		{
+			root=n;
+		}
+		else
+		{
+			node *p=root;
+			while(p!=NULL)
+			{
+				temp=p;
+				if(x>p->val)
+				{
+					p=p->right;
+				}
+				else
+					p=p->left;
+			}
+			if(x>temp->val)
+				temp->right=n;
+			else
+				temp->left=n;
+		}
+	}
+
+
+};
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	 <tabTrigger>bst</tabTrigger> 
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

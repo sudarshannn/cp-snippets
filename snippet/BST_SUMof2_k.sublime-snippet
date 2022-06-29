@@ -1,0 +1,172 @@
+<snippet>
+	<content><![CDATA[
+#include <bits/stdc++.h>
+using namespace std;
+
+#define ll      		long long int
+#define scan(any)       for(auto &i:any) cin>>i;
+#define print(any)      for(auto i:any) cout<<i<<" "; 
+#define endl            '\n'
+#define pb push_back
+#define vll vector<ll> 
+#define f(i,x,y)  for(i=x;i<y;i++)
+#define INF     LLONG_MAX
+#define fast    ios::sync_with_stdio(0);cin.tie(0);cout.tie(0);
+#define s(x) sort(x.begin(),x.end())
+#define all(v) v.begin(),v.end()
+#define p2(n,x)    cout << fixed << setprecision(x) <<n<<endl; 
+#define pll    pair<ll,ll> 
+#define ff first
+#define ss second
+#define blt(x)   __builtin_popcount(x)
+struct Node 
+{
+	int val;
+	Node *left;
+	Node *right;
+
+	Node(int x)
+	{
+		val=x;
+		left= right= NULL;
+	}
+};
+Node * fun(int *arr,int len)
+{
+	if(len<=0)
+		return NULL;
+	
+	Node *root;
+	int mid=len/2;
+	root= new Node(arr[mid]);
+	root->left=fun(arr,mid);
+	root->right=fun(arr+mid+1,len-mid-1);
+
+	return root;
+}
+
+void ino(Node *a)
+{
+	if(!a)
+		return ;
+
+	ino(a->left);
+	cout<<a->val<<" ";
+	ino(a->right);
+}
+
+void solve()
+{
+	ll i,j,k=11,n;
+	cin>>n;
+	int a[n];
+	scan(a);
+
+	Node *root=fun(a,n);
+	
+	Node *cur1=root;
+	Node *cur2=root;
+
+	int v1,v2;
+
+	stack<Node *> s1,s2;
+	bool d1=false,d2=false;
+	while(1)
+	{
+		while(!d1)
+		{
+			if(cur1)
+			{
+				s1.push(cur1);
+				cur1=cur1->left;
+			}
+			else
+			{
+				if(s1.empty())
+				{
+					d1=true;
+				}
+				else
+				{
+					cur1=s1.top();
+					s1.pop();
+					v1=cur1->val;
+					cur1=cur1->right;
+					d1=true;
+				}
+			}
+		}
+
+		while(!d2)
+		{
+			if(cur2)
+			{
+				s2.push(cur2);
+				cur2=cur2->right;
+			}
+			else
+			{
+				if(s2.empty())
+				{
+					d2=true;
+				}
+				else
+				{
+					d2=true;
+					cur2=s2.top();
+					s2.pop();
+					v2=cur2->val;
+					cur2=cur2->left;
+				}
+			}
+		}
+		//cout<<v1<<" "<<v2<<endl;
+		if(v1+v2==k)
+		{
+			cout<<v1<<" "<<v2;
+			return ;
+
+		}
+
+		if(v1+v2<k)
+			d1=false;
+		else
+			d2=false;
+
+		if(v1>=v2)
+		{
+			cout<<-1;
+			return ;
+		}
+
+
+
+
+	}
+
+
+
+}
+
+int main()
+{
+	#ifndef ONLINE_JUDGE
+		freopen("F:/Programming/input.txt","r",stdin);
+		freopen("F:/Programming/output.txt","w",stdout);
+	#endif
+	fast
+	ll t = 1;
+
+	
+
+	while(t--)
+	solve();
+	
+	return 0;
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	 <tabTrigger>BST_SUMof2_k</tabTrigger> 
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

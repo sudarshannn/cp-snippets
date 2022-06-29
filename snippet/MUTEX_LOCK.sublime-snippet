@@ -1,0 +1,40 @@
+<snippet>
+	<content><![CDATA[
+
+// RUN THIS ON GDB
+
+#include<stdio.h>
+#include<pthread.h>
+#include <stdlib.h>
+#include <unistd.h> //Header file for sleep(). man 3 sleep for details.
+pthread_t tid[2];
+int cnt=0;
+pthread_mutex_t lock;
+void *myfun()
+{
+    pthread_mutex_lock(&lock);
+    cnt++;
+    printf("STARTING OF THREAD %d\n",cnt);
+    sleep(1);
+    printf("ENDING OF THREAD %d\n",cnt);
+    pthread_mutex_unlock(&lock);
+    return NULL;
+}
+int main()
+{
+    pthread_mutex_init(&lock,NULL);
+    for(int i=0;i<2;i++)
+    {
+        pthread_create(&(tid[i]),NULL,&myfun,NULL);
+        
+    }
+    pthread_join(tid[0],NULL);
+    pthread_join(tid[1],NULL);
+    
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	 <tabTrigger>MUTEX_LOCK</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

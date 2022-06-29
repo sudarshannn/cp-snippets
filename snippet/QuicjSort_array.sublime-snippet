@@ -1,0 +1,30 @@
+<snippet>
+	<content><![CDATA[
+int Partition(int arr[],int l,int r)
+{
+    int pai=arr[r],ind=r,i,j=l;
+    for(i=l;i<=r;i++)
+    {
+        if(arr[i]<pai)
+        {
+            swap(arr[i],arr[j++]);
+        }
+    }
+    swap(arr[r],arr[j]);
+    return j;
+}
+void QS(int arr[],int l,int r)
+{
+    if(l>=r)
+        return ;
+
+    int pivot=Partition(arr,l,r);
+    QS(arr,l,pivot-1);
+    QS(arr,pivot+1,r);
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	 <tabTrigger>QuickSort_Array</tabTrigger> 
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

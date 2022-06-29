@@ -1,0 +1,161 @@
+<snippet>
+	<content><![CDATA[
+#include <bits/stdc++.h>
+using namespace std;
+
+#define ll              long long int
+#define scan(any)       for(auto &i:any) cin>>i;
+#define print(any)      for(auto i:any) cout<<i<<" "; 
+#define endl            '\n'
+#define pb              push_back
+#define vll             vector<ll> 
+#define vvll            vector<vll>
+#define f(i,x,y)        for(i=x;i<y;i++)
+#define INF             LLONG_MAX
+#define s(x)            sort(x.begin(),x.end())
+#define all(v)          v.begin(),v.end()
+#define p2(n,x)         cout << fixed << setprecision(x) <<n<<endl; 
+#define pll             pair<ll,ll> 
+#define mll             map<ll,ll>
+#define ff              first
+#define ss              second
+#define blt(x)          __builtin_popcount(x)
+#define pi              2*asin(1.0)
+// https://leetcode.com/problems/basic-calculator/discuss/357444/c-infix-to-postfix-method
+struct Element{
+        bool isOperator = false;
+        int val = 0;
+        char op = '+';
+    };
+
+    int calc(int l , int r, char op){
+        switch(op){
+            case '+': return l + r;
+            case '-': return l - r;
+            case '*': return l * r;
+            case '/': return l / r;
+            default : return 0;
+        }
+        
+    }
+    int getPrec(char op){
+            switch(op){
+                case '+': return 1;
+                case '-': return 1;
+                case '*': return 2;
+                case '/': return 2;
+                default : return 0;
+            }
+        }
+    int evalPostfix(vector<Element> postfix){
+        stack<int> s;
+        for(int i = 0; i < postfix.size(); i++){
+            if(postfix[i].isOperator){
+                int r = s.top();
+                s.pop();
+                int l = s.top();
+                s.pop();
+                s.emplace(calc(l, r , postfix[i].op));
+            }
+            else{
+                s.emplace(postfix[i].val);
+            }
+        }
+        return s.top();
+    }
+    vector<Element> infix2Postfix(string s){
+        vector<Element> res;
+        stack<char> operatorStack;
+        int n = s.size();
+        for(int l = 0, r = 0; l < n ; r++, l = r){
+            if(isdigit(s[r])){
+                while(isdigit(s[r])){
+                    r++;
+                }
+                int val = stoi(s.substr(l, r - l));
+                r--;
+                Element cur;
+                cur.val = val;
+                res.emplace_back(cur);
+            }
+            else if(s[r] == ' '){
+                continue;
+            }
+            else if(s[r] == '('){
+                operatorStack.emplace('(');
+            }
+            else if(s[r] == ')'){
+                while(!operatorStack.empty() && operatorStack.top() != '('){
+                    char c = operatorStack.top();
+                    operatorStack.pop();
+                    Element top;
+                    top.isOperator = true;
+                    top.op = c;
+                    res.emplace_back(top);
+                }
+                operatorStack.pop();
+            }
+            else{
+                // op
+                char cur = s[r];
+                while(!operatorStack.empty() && getPrec(operatorStack.top()) >= getPrec(s[r])){
+                    char c = operatorStack.top();
+                    operatorStack.pop();
+                    Element top;
+                    top.isOperator = true;
+                    top.op = c;
+                    res.emplace_back(top);
+                }
+                operatorStack.emplace(cur);
+            }
+        }
+        while(!operatorStack.empty()){
+                    char c = operatorStack.top();
+                    operatorStack.pop();
+                    Element top;
+                    top.isOperator = true;
+                    top.op = c;
+                    res.emplace_back(top);
+                }
+        return res;
+    }
+
+void solve()
+{
+    int i,j,k,n;
+    string s;
+    cin>>s;
+    n=s.size();
+    vector<Element> v = infix2Postfix(s);
+
+    for(auto x:v)
+    {
+        if(x.isOperator)
+            cout<<x.op<<" ";
+        else
+            cout<<x.val<<" ";
+    }    
+}
+
+int main()
+{
+    #ifndef ONLINE_JUDGE
+        freopen("E:/Programming/input.txt", "r", stdin);
+        freopen("E:/Programming/output.txt", "w", stdout);
+    #endif
+
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    
+    ll t = 1;
+    while(t--) {
+        solve();    
+    }
+    return 0;
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	 <tabTrigger>infix_to_postfix</tabTrigger> 
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

@@ -1,0 +1,54 @@
+<snippet>
+	<content><![CDATA[
+struct segtree
+{
+    ll size;
+    vll sums;
+    void init(ll n)
+    {
+        size=1;
+        while(size<n)
+            size*=2;
+        sums.assign(2*size,0);
+    }
+    void set(ll i,ll v,ll x,ll lx,ll rx)
+    {
+        if(rx-lx==1)
+        {
+            sums[x]=v;
+            return ;
+        }
+        ll mid=(lx+rx)/2;
+        if(i<mid)
+            set(i,v,2*x+1,lx,mid);
+        else
+            set(i,v,2*x+2,mid,rx);
+        sums[x]=sums[2*x+1]+sums[2*x+2];
+    }
+    void set(ll i,ll v)
+    {
+        set(i,v,0,0,size);
+    }
+    ll query(ll l,ll r,ll x,ll lx,ll rx)
+    {
+        if(lx>=r || rx<=l)
+            return 0;
+        if(l<=lx && rx<=r)
+            return sums[x];
+        ll mid=(lx+rx)/2;
+        ll s1=query(l,r,2*x+1,lx,mid);
+        ll s2=query(l,r,2*x+2,mid,rx);
+        return s1+s2;
+    }
+    
+    ll sum(ll l,ll r)
+    {
+        return query(l,r,0,0,size);
+    }
+};
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	 <tabTrigger>segment_tree</tabTrigger> 
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

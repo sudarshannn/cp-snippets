@@ -1,0 +1,84 @@
+<snippet>
+	<content><![CDATA[
+
+// https://cses.fi/problemset/task/1694/
+ll bfs(ll s,ll t,ll n,vector<vector<ll>> &adj,vector<vector<ll>> &capacity,vector<ll> &par)
+{
+    par=vector<ll>(n,-1);
+    par[s]=-2;
+
+    queue<pair<ll,ll>> q;
+    q.push({s,INF});
+
+    while(q.size())
+    {
+        ll u=q.front().first;
+        ll c=q.front().second;
+
+        q.pop();
+        if(u==t)
+            return c;
+
+        for(int i=0;i<adj[u].size();i++)
+        {
+            if(par[adj[u][i]]==-1 && capacity[u][adj[u][i]])
+            {
+                par[adj[u][i]]=u;
+                ll new_c=min(c,capacity[u][adj[u][i]]);
+
+                q.push({adj[u][i],new_c});
+            }
+        }
+    }
+    return 0;
+}
+
+ll Maxflow(ll s,ll t,ll n,vector<vector<ll>> &adj,vector<vector<ll>> &capacity)
+{
+    ll ans=0,newflow;
+    vector<ll> par(n);
+
+    while(newflow = bfs(s,t,n,adj,capacity,par))
+    {
+        ans+=newflow;
+
+        ll cur=t;
+        while(cur!=s)
+        {
+            capacity[par[cur]][cur]-=newflow;
+            capacity[cur][par[cur]]+=newflow;
+            cur=par[cur];
+        }
+    }
+    return ans;
+}
+void solve()
+{
+    ll i,j,k,n,m;
+    cin>>n>>m;
+    vector<vector<ll>> adj(n),capacity(n,vector<ll>(n,0));
+
+    for(i=0;i<m;i++)
+    {
+        ll u,v,w;
+        cin>>u>>v>>w;
+
+        u--;
+        v--;
+    
+        capacity[u][v]+=w;
+        adj[u].push_back(v);
+        adj[v].push_back(u);
+    }
+
+    cout<<Maxflow(0,n-1,n,adj,capacity);
+
+    
+}
+
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	 <tabTrigger>Max_flow</tabTrigger> 
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

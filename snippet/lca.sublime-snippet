@@ -1,0 +1,78 @@
+<snippet>
+	<content><![CDATA[
+vll lvl;
+void dfs(vll adj[],ll u,ll p,vector<vll> &lca)
+{
+    lca[u][0]=p;
+    ll i;
+
+    if(p==-1)
+        lvl[u]=0;
+    else
+        lvl[u]=lvl[p]+1;
+
+    f(i,0,(int)adj[u].size())
+    {
+        if(adj[u][i]!=p)
+            dfs(adj,adj[u][i],u,lca);
+    }
+}
+
+vector<vll> init(vll adj[],ll n)
+{
+    ll i,j,k,maxN;
+    maxN=log2(n)+1;
+    lvl=vll(n);
+    vector<vll> lca(n,vll(maxN,-1));
+    dfs(adj,0,-1,lca);
+    f(i,1,maxN)
+    {
+        f(j,0,n)
+        {
+            if(lca[j][i-1]!=-1)
+            {
+                ll par=lca[j][i-1];
+                lca[j][i]=lca[par][i-1];
+            }
+        }
+    }
+    
+    return lca;
+}
+
+ll fun(ll u,ll v,vll adj[],ll n,vector<vll> &lca)
+{
+    
+    if(lvl[u]<lvl[v])
+        swap(u,v);
+
+    ll d=lvl[u]-lvl[v],i,maxN=(int)lca[0].size();
+
+    while(d>0)
+    {
+        i=log2(d);
+        u=lca[u][i];
+        d-=(1<<i);
+    }
+    if(u==v)
+        return u;
+    for(i=maxN-1;i>=0;i--)
+    {
+        if(lca[u][i]!=-1 && (lca[u][i]!=lca[v][i]))
+        {
+            u=lca[u][i];
+            v=lca[v][i];
+        }
+    }
+    return lca[u][0];
+
+
+}
+//vector<vll> lca=init(adj,n);
+// fun(u,v,adj,n,lca);
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	 <tabTrigger>lca_old</tabTrigger> 
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

@@ -1,0 +1,99 @@
+<snippet>
+	<content><![CDATA[
+
+struct Node
+{
+    int val;
+    Node *left,*right;
+
+    Node()
+    {
+        val=0;
+        left=right=NULL;
+    }
+    Node(int x)
+    {
+        val=x;
+        left=right=NULL;
+    }
+};
+
+void ino(Node *a)
+{
+    if(!a)
+        return ;
+    cout<<a->val<<" ";
+    ino(a->left);
+    ino(a->right);
+}
+map<int,vector<int>> ans;
+
+void help(Node *a,int d)
+{
+    if(!a)
+        return ;
+
+    ans[d].push_back(a->val);
+    help(a->left,d+1);
+    help(a->right,d+1);
+}
+int dis(Node *a,int x)
+{
+    if(!a)
+        return -1;
+
+    if(a->val==x)
+    {
+        help(a,0);
+        return 0;
+    }
+
+    int l=dis(a->left,x);
+    if(l!=-1)
+    {
+        ans[1+l].push_back(a->val);
+        help(a->right,2+l);
+
+        return 1+l;
+    }
+    int r=dis(a->right,x);
+    if(r!=-1)
+    {
+        ans[1+r].push_back(a->val);
+        help(a->left,2+r);
+
+        return 1+r;
+    }
+
+    return -1;
+}
+void solve()
+{
+    Node *root= new Node(1);
+
+    root->left=new Node(2);    
+    root->right=new Node(3);
+
+    root->left->left=new Node(4);    
+    root->left->right=new Node(5); 
+
+    root->right->left=new Node(6);    
+    root->right->right=new Node(7);
+
+    //ino(root);   
+
+    dis(root,2);
+    for(auto x:ans)
+    {
+        cout<<x.ff<<"-->";
+        print(x.ss);
+        cout<<endl;
+    }
+
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	 <tabTrigger>Burntree_new</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

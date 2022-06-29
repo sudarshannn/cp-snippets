@@ -1,0 +1,84 @@
+<snippet>
+	<content><![CDATA[
+struct Node 
+{
+    int val;
+    Node *left;
+    Node *right;
+
+    Node(int x)
+    {
+        val=x;
+        left= right= NULL;
+    }
+};
+Node * fun(int *arr,int len)
+{
+    if(len<=0)
+        return NULL;
+    
+    Node *root;
+    int mid=len/2;
+    root= new Node(arr[mid]);
+    root->left=fun(arr,mid);
+    root->right=fun(arr+mid+1,len-mid-1);
+
+    return root;
+}
+void dis(Node *a,int k)
+{
+    if(!a || k<0)
+        return ;
+    if(k==0)
+    {
+        cout<<a->val<<" ";
+        return ;
+    }
+    dis(a->left,k-1);
+    dis(a->right,k-1);
+}
+
+int f2(Node *a,int k,int u)
+{
+    if(!a)
+        return -1;
+    if(a->val==u)
+    {
+        dis(a,k);
+        return 0;
+    }
+    int l=f2(a->left,k,u);
+    if(l!=-1)
+    {
+        if(l+1==k)
+        {
+            cout<<a->val<<" ";
+        }
+        else
+        {
+            dis(a->right,k-l-2);
+        }
+        return 1+l;
+    }
+    int r=f2(a->right,k,u);
+    if(r!=-1)
+    {
+        if(r+1==k)
+        {
+            cout<<a->val<<" ";
+        }
+        else
+        {
+            dis(a->left,k-r-2);
+        }
+        return 1+r;
+    }
+    return -1;
+
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	 <tabTrigger>k_dist_nodes</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

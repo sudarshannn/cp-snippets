@@ -1,0 +1,80 @@
+<snippet>
+	<content><![CDATA[
+bool is_valid_sudoku(int i,int j,vector<vector<char>> &v,int num)
+{
+    for(int k=0;k<9;k++)
+    {
+        if(v[i][k]-'0'==num)
+        return false;
+        
+        if(v[k][j]-'0'==num)
+        return false;
+    }
+    
+    int row= 3*(i/3),col=3*(j/3);
+    for(int k=row;k<row+3;k++)
+    {
+        for(int k2=col;k2<col+3;k2++)
+        {
+            if(v[k][k2]-'0'==num)
+            return false;
+        }
+    }
+    return true;
+}
+bool sudoku_solver(vector<vector<char>> &v)
+{
+    for(int i=0;i<v.size();i++)
+    {
+        for(int j=0;j<v[0].size();j++)
+        {
+            if(v[i][j]=='.')
+            {
+                for(int k=1;k<10;k++)
+                {
+                    if(is_valid_sudoku(i,j,v,k))
+                    {
+                        v[i][j]='0'+k;
+                        
+                        if(sudoku_solver(v))
+                        return true;
+                        else
+                        v[i][j]='.';
+                        
+                        
+                    }
+                }
+                return false;
+            }
+        }
+    }
+    
+    return true;
+}
+/*void solve() {
+    int i,j;
+    vector<vector<char> > A(9,vector<char>(9));
+    for(i=0;i<9;i++)
+    {
+        for(j=0;j<9;j++)
+            cin>>A[i][j];
+    }
+
+    if(sudoku_solver(A))    
+    {
+        for(i=0;i<9;i++)
+        {
+            for(j=0;j<9;j++)
+                cout<<A[i][j];
+            cout<<endl;
+        }
+    }
+        
+}
+*/
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	 <tabTrigger>Sudoku_Solver</tabTrigger> 
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

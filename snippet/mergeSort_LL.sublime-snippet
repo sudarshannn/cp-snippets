@@ -1,0 +1,111 @@
+<snippet>
+	<content><![CDATA[
+struct Node
+{
+	int val;
+	Node *next;
+	Node(int x)
+	{
+		val=x;
+		next=NULL;
+	}
+};
+
+int len(Node *a)
+{
+	int c=0;
+	while(a)
+	{
+		c++;
+		a=a->next;
+	}
+	return c;
+}
+void push(Node *&h,int xx)
+{
+	Node *x=new Node(xx);
+	x->next=h;
+	h=x;
+}
+void prin(Node *a)
+{
+	while(a)
+	{
+		cout<<a->val<<" ";
+		a=a->next;
+	}
+}
+void part(Node*head,Node *&a,Node *&b)
+{
+	Node *c1,*c2;
+	int i,j,k,l;
+	l=len(head);
+	k=l/2;
+	if(l%2==0)
+		k--;
+	c1=head;
+	while(k--)
+	{
+		c1=c1->next;
+	}
+	b=c1->next;
+	c1->next=NULL;
+	a=head;
+}
+Node *merge(Node *&a,Node *&b)
+{
+	Node *r=NULL;
+	if(!a)
+		return b;
+	if(!b)
+		return a;
+	if(a->val<=b->val)
+	{
+		r=a;
+		r->next=merge(a->next,b);
+	}
+	else
+	{
+		r=b;
+		r->next=merge(a,b->next);
+	}
+	return r;
+
+}
+void mergeSort(Node *&head)
+{
+	if(!head || head->next==NULL)
+		return ;
+	Node *a,*b;
+	part(head,a,b);
+	mergeSort(a);
+	mergeSort(b);
+
+	head=merge(a,b);
+}
+
+
+
+void solve()
+{
+	Node *a=new Node(11);
+	push(a,2);
+	push(a,333);
+	push(a,7);
+
+	Node *b=new Node(12);
+	push(b,62);
+	push(b,4);
+	push(b,3);
+
+	Node *final=merge(a,b);
+	mergeSort(final);
+	prin(final);
+
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	 <tabTrigger>mergeSort_LL</tabTrigger> 
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>
